@@ -345,9 +345,9 @@ The Excel file is served as a static asset in the project's /assets/ folder. The
 |----------|---------------|-----------|
 | Is Netlify MCP active — is Netlify connected via Claude Desktop Connectors for this project? | Builder — confirm before opening Claude Code | No — can deploy manually if not active |
 | What is the deployed URL for this tool? | Builder | No — can be confirmed after first deployment |
-| What is the real URL for the Supplier Code of Conduct document? | Builder — provide before or during the build session | No — Claude Code will leave as # and flag for builder to update |
-| What is the real URL for the Global Environmental Policy document? | Builder — provide before or during the build session | No — Claude Code will leave as # and flag for builder to update |
-| "Why We Are Asking" section — body copy not provided in the interview | Claude Code drafts during the build session following The Corporate brand voice; builder reviews before deployment | No — Claude Code resolves during build |
+| What is the real URL for the Supplier Code of Conduct document? | Resolved — linked directly to `docs/The_Corporate_Supplier_Code_of_Conduct_2026.pdf`, the actual document supplied in the repo | — |
+| What is the real URL for the Global Environmental Policy document? | Resolved — linked directly to `docs/The_Corporate_Global_Environmental_Policy.pdf`, the actual document supplied in the repo | — |
+| "Why We Are Asking" section — body copy not provided in the interview | Claude Code drafted this during the v1.1 build session following The Corporate brand voice; builder should review before deployment | No — drafted, pending builder review |
 
 ---
 
@@ -356,6 +356,7 @@ The Excel file is served as a static asset in the project's /assets/ folder. The
 | Version | Date | What changed in the tool |
 |---------|------|--------------------------|
 | v1.0 | 12 June 2026 | Retroactive spec of the existing supplier onboarding landing page (supplier_onboarding.html). Spec created to establish Project Governor and Claude Code session compatibility. |
+| v1.1 | 2 September 2026 | First Tier 1 build session. Renamed the page to `index.html` and moved static assets into `assets/` and `docs/`. Replaced the interactive yes/no decision-tree UI with the static two-card layout Section 8/9 specify — the decision tree gated/dimmed one submission path based on the visitor's answer, which Section 9 explicitly prohibits. Fixed the EcoVadis CTA to open `https://ecovadis.com` in a new tab per acceptance criterion 5 (it previously sent an email). Drafted the "Why We Are Asking" copy and linked "View Document"/"View Policy" to the real PDFs now in `docs/`. Added `netlify.toml`, `CLAUDE.md`, and `PROGRESS.md`. |
 
 ---
 
