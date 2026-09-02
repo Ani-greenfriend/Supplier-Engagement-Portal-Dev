@@ -1,50 +1,39 @@
 # PROGRESS — The Corporate Supplier Sustainability Portal 2026
 
-Tracks status against `product-spec.md` Section 13 (Acceptance Criteria) and Section 14
-(Build Path).
+> Claude Code: read this file at the start of every session, before touching
+> anything. Update it at every save point. Replace content — do not append.
+> History lives in git.
 
-## Build session — 2026-09-02
+**Session:** 1 — v1.1 build complete, v1.2 revision pending
+**Last updated:** 2 September 2026 — by Project Governor (iteration)
+**Live URL:** none confirmed yet — Netlify deploy status was never verified after session 1
 
-First Session Setup and Tier 1 build, run against the retroactive spec:
+## Current state
+Landing page live as `index.html` (single scrolling page, HTML/CSS/JS, no framework): Nav, Hero, Why We Are Asking, Two Routes (EcoVadis card + blank Excel download only — not yet updated for v1.2), What Happens Next timeline, Key Resources (linked to the real PDFs in docs/), Footer. Static assets live in assets/ and docs/. netlify.toml present (`publish = "."`). No brand skill file has ever been supplied — brand rules are applied directly from product-spec.md Section 10. Acceptance criteria 1–9 from the v1.1 spec were verified in session 1; criterion 10 (live Netlify deploy) was never confirmed.
 
-- Created `docs/` and `assets/`; moved the questionnaire XLSX and reference PDFs there
-  from the repo root.
-- Renamed `supplier-onboarding.html` → `index.html` so Netlify serves it at the site root
-  with no redirect needed.
-- Rebuilt the page against Section 8/9 of the spec. The existing build had drifted from
-  the spec in two ways that acceptance criteria would have caught:
-  - It used an interactive yes/no "decision tree" that dimmed/hid one submission path
-    based on the visitor's answer. Section 9 requires both paths visible simultaneously
-    with no gating — replaced with the static two-card layout the spec describes.
-  - The EcoVadis CTA sent an email instead of opening ecovadis.com in a new tab
-    (acceptance criterion 5) — fixed.
-- Drafted "Why We Are Asking" body copy per Section 15 (open item, no copy was supplied
-  in the interview). Builder should review before deployment.
-- Linked "View Document" and "View Policy" directly to the real PDFs now in `docs/`
-  (`The_Corporate_Supplier_Code_of_Conduct_2026.pdf`,
-  `The_Corporate_Global_Environmental_Policy.pdf`) instead of leaving them as `#`.
-- Added `netlify.toml` (`publish = "."`) so the static root deploys cleanly.
+## Last session
+2026-09-02 (Session 1) — First Session Setup and Tier 1 build against the v1.0 retroactive spec: created docs/ and assets/, renamed the page to index.html, replaced a gated decision-tree UI with the static two-card layout the v1.0/v1.1 spec required, fixed the EcoVadis CTA to open ecovadis.com, drafted "Why We Are Asking" copy, linked the real PDFs, added netlify.toml. Spec bumped to v1.1.
 
-## Acceptance criteria (Section 13)
+## Remaining work
+- [ ] Confirm the live Netlify URL and that criterion 10 (deploy accessible on desktop/mobile) passes (carried over from session 1)
+- [ ] Builder: review the drafted "Why We Are Asking" copy (carried over from session 1)
+- [ ] Build the updated Full Questionnaire card: three actions — Download Blank Questionnaire (unchanged), Fill Out Online, Upload Completed File (v1.2 revision, spec Section 8)
+- [ ] Build the Guided Form overlay: 7 sections read from assets/The_Corporate_Supplier_Questionnaire_2026.xlsx, progress indicator, Back/Next, declaration step, Review screen with per-section edit (v1.2 revision, spec Section 8)
+- [ ] Build the Upload & Review overlay: accept .xlsx/.csv, parse client-side, pre-fill the same Review screen as the Guided Form, handle bad-file errors (v1.2 revision, spec Section 8)
+- [ ] Build the shared Confirmation screen for both new flows (v1.2 revision, spec Section 8)
+- [ ] Wire the expanded Export arm: generate a completed XLSX client-side from Guided Form or Upload & Review answers, matching the source workbook's structure (v1.2 revision, spec Section 3)
+- [ ] Local test pass — full walkthrough of both new flows; confirm devtools shows no network requests from either (v1.2 revision — this is what keeps the tool D2, not D3)
+- [ ] Acceptance criteria pass — verify all 17 criteria in spec v1.2 Section 13 before deploy
+- [ ] Deploy updated build to Netlify via MCP (Netlify MCP active, set environment variables — none currently needed)
 
-| # | What to verify | Status |
-|---|---|---|
-| 1 | All 7 content sections render in order | Done |
-| 2 | Brand identity applied correctly | Done |
-| 3 | Stats row shows all 4 figures | Done |
-| 4 | "Supplier Programme 2026" pill is Pattern A | Done |
-| 5 | EcoVadis button opens ecovadis.com in a new tab | Done |
-| 6 | Download button triggers the XLSX download | Done |
-| 7 | Contact EHS mailto pre-fills recipient/subject | Done |
-| 8 | Timeline shows all 4 steps in order | Done |
-| 9 | Responsive below 768px, no horizontal overflow | Done |
-| 10 | Deploys to Netlify, live URL works | Pending — needs an actual Netlify deploy |
+## Build decisions
+None yet.
 
-## Open items (Section 15)
+## Known issues
+- No brand skill file (the-corporate-brand) has ever been supplied — brand rules are applied directly from product-spec.md Section 10 instead; install it per First Session Setup if it's supplied later.
+- Dropdown answer options for 3 questions (SBTi target, Human Rights Policy alignment, conflict-minerals/3TG policy) were defaulted by the Tool Architect to include a "Partial / In Progress" option — builder should review before deployment (spec Section 9).
+- The Guided Form's declaration step (signatory name + date) is an assumption carried from the spec (Section 15), not an explicit builder confirmation — confirm before or during the build.
+- Spec revised to v1.2 on 2 September 2026 — CLAUDE.md regenerated by Project Governor to cover the new Guided Form and Upload & Review flows.
 
-- [ ] Confirm whether Netlify MCP is connected, or connect the repo to Netlify manually.
-- [ ] Confirm the deployed URL once live.
-- [ ] Builder to review the drafted "Why We Are Asking" copy before go-live.
-- [ ] `the-corporate-brand` skill file was never provided — brand rules were applied
-  directly from `product-spec.md` Section 10 instead. Add the skill file to
-  `.claude/skills/` if/when it's supplied.
+## Notes for next session
+None.
