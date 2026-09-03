@@ -256,6 +256,9 @@
     margin-bottom: var(--tc-space-xl);
     flex: 1;
   }
+  .route-actions { display: flex; flex-direction: column; gap: var(--tc-space-sm); }
+  .route-actions .tc-btn-primary,
+  .route-actions .tc-btn-secondary { width: 100%; }
 
   /* ── TIMELINE ─────────────────────────────────────────────────────────── */
   .section-timeline { padding: var(--tc-space-3xl) 0; background: var(--tc-white); }
@@ -352,6 +355,136 @@
     max-width: 360px;
   }
   @media (max-width: 768px) { .footer-copy { text-align: left; } }
+
+  /* ── OVERLAYS — GUIDED FORM / UPLOAD & REVIEW (v1.2) ────────────────────── */
+  .tc-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.82);
+    z-index: 1000;
+    display: none;
+    overflow-y: auto;
+    padding: var(--tc-space-xl) var(--tc-space-md);
+  }
+  .tc-overlay.is-open { display: block; }
+  .tc-overlay-panel {
+    background: var(--tc-white);
+    max-width: 720px;
+    margin: 0 auto;
+    border: 0.5px solid var(--tc-ink);
+  }
+  .tc-overlay-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--tc-ink);
+    padding: var(--tc-space-md) var(--tc-space-lg);
+  }
+  .tc-overlay-title {
+    font-family: var(--tc-font-display);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--tc-chalk);
+  }
+  .tc-overlay-close {
+    background: transparent;
+    border: none;
+    color: var(--tc-chalk);
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 4px 8px;
+  }
+  .tc-overlay-body { padding: var(--tc-space-xl) var(--tc-space-lg); }
+  @media (max-width: 640px) {
+    .tc-overlay { padding: 0; }
+    .tc-overlay-panel { max-width: 100%; min-height: 100vh; border: none; }
+    .tc-overlay-body { padding: var(--tc-space-lg) var(--tc-space-md); }
+  }
+
+  .tc-section-title {
+    font-family: var(--tc-font-display);
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: var(--tc-space-lg);
+  }
+
+  .tc-field { margin-bottom: var(--tc-space-lg); }
+  .tc-field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: var(--tc-space-sm);
+  }
+  .tc-field input[type="text"],
+  .tc-field input[type="number"],
+  .tc-field input[type="date"],
+  .tc-field select,
+  .tc-field textarea {
+    width: 100%;
+    border: 0.5px solid var(--tc-ink);
+    border-radius: 0;
+    padding: 10px 12px;
+    font-family: var(--tc-font-body);
+    font-size: 14px;
+    font-weight: 300;
+    background: var(--tc-white);
+    color: var(--tc-ink);
+  }
+  .tc-field textarea { min-height: 100px; resize: vertical; }
+  .tc-field.has-error input,
+  .tc-field.has-error select,
+  .tc-field.has-error textarea { border: 2px solid var(--tc-ink); }
+  .tc-error-text { font-size: 11px; font-weight: 500; margin-top: 6px; }
+
+  .tc-wizard-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--tc-space-md);
+    margin-top: var(--tc-space-xl);
+    padding-top: var(--tc-space-lg);
+    border-top: 0.5px solid var(--tc-stone);
+  }
+  @media (max-width: 480px) {
+    .tc-wizard-nav { flex-direction: column-reverse; }
+    .tc-wizard-nav button, .tc-wizard-nav a { width: 100%; text-align: center; }
+  }
+
+  .tc-review-banner {
+    border: 0.5px solid var(--tc-ink);
+    padding: var(--tc-space-md);
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: var(--tc-space-lg);
+  }
+  .tc-review-section { margin-bottom: var(--tc-space-xl); }
+  .tc-review-section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--tc-space-md);
+    border-bottom: 0.5px solid var(--tc-ink);
+    padding-bottom: var(--tc-space-sm);
+    margin-bottom: var(--tc-space-md);
+  }
+  .tc-review-section-head span { font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
+  .tc-review-item { padding: var(--tc-space-sm) 0; border-bottom: 0.5px solid var(--tc-linen); }
+  .tc-review-item--error { border-left: 3px solid var(--tc-ink); padding-left: var(--tc-space-sm); }
+  .tc-review-q { font-size: 12px; font-weight: 500; color: var(--tc-stone); margin-bottom: 4px; }
+  .tc-review-a { font-size: 14px; font-weight: 300; white-space: pre-wrap; word-break: break-word; }
+
+  .tc-upload-drop {
+    border: 0.5px dashed var(--tc-ink);
+    padding: var(--tc-space-2xl) var(--tc-space-lg);
+    text-align: center;
+    margin-bottom: var(--tc-space-lg);
+  }
+  .tc-upload-hint { font-size: 11px; color: var(--tc-stone); margin-top: var(--tc-space-md); }
+
+  .tc-confirm-title { font-family: var(--tc-font-display); font-size: 24px; font-weight: 700; margin-bottom: var(--tc-space-md); }
+
+  button.tc-link { background: none; border: none; cursor: pointer; }
 </style>
 </head>
 <body>
@@ -446,13 +579,22 @@
       <div class="route-card">
         <div class="route-label">Full Questionnaire</div>
         <p class="route-body">
-          If you do not hold a current EcoVadis scorecard, download and complete our ESRS-aligned
-          Excel questionnaire. Return the completed file by email to our EHS team at
-          sustainability@thecorporate.com.
+          If you do not hold a current EcoVadis scorecard, there are now three ways to complete our
+          ESRS-aligned questionnaire. Download the blank file and return it however suits you, fill
+          it out online with a guided step-by-step form, or upload a file you have already completed
+          and we will read it back to you before you send it in.
         </p>
-        <a href="assets/The_Corporate_Supplier_Questionnaire_2026.xlsx" download class="tc-btn-secondary" style="text-align:center;">
-          Download Assessment
-        </a>
+        <div class="route-actions">
+          <a href="assets/The_Corporate_Supplier_Questionnaire_2026.xlsx" download class="tc-btn-secondary" style="text-align:center;">
+            Download Blank Questionnaire
+          </a>
+          <button type="button" id="btn-fill-online" class="tc-btn-primary" style="text-align:center;">
+            Fill Out Online
+          </button>
+          <button type="button" id="btn-upload-file" class="tc-btn-secondary" style="text-align:center;">
+            Upload Completed File
+          </button>
+        </div>
       </div>
 
     </div>
@@ -545,6 +687,22 @@
     <p class="footer-copy">© 2026 The Corporate. Confidential — for authorised Tier 1 suppliers only.</p>
   </div>
 </footer>
+
+<!-- ── GUIDED FORM / UPLOAD & REVIEW OVERLAY (v1.2) ───────────────────────── -->
+<div class="tc-overlay" id="tc-overlay" role="dialog" aria-modal="true" aria-labelledby="tc-overlay-title">
+  <div class="tc-overlay-panel">
+    <div class="tc-overlay-header">
+      <span class="tc-overlay-title" id="tc-overlay-title">Fill Out Online</span>
+      <button type="button" class="tc-overlay-close" id="tc-overlay-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="tc-overlay-body" id="tc-overlay-body"></div>
+  </div>
+</div>
+<input type="file" id="tc-upload-input" accept=".xlsx,.csv" hidden>
+
+<script src="js/vendor/xlsx.full.min.js"></script>
+<script src="js/questionnaire-data.js"></script>
+<script src="js/app.js"></script>
 
 </body>
 </html>
